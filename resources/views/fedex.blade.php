@@ -37,7 +37,7 @@
     {{ session('user[consignee]') }}
 
     <div class="container mt-4" id="ItemList">
-
+<h1>fedex</h1>
         <form action="{{ route('quotation', ['type' => 'fedex']) }}" method="post">
             @csrf
             <!-- 計算表示 -->

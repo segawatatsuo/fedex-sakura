@@ -21,6 +21,8 @@ class QuotationController extends Controller
 {
     public function quotation(Request $request)
     {
+
+
         if(session('article')==""){
             session()->put(['article' => 'Air Stocking']);
         }
@@ -121,11 +123,6 @@ class QuotationController extends Controller
         $ship_low = $ship->lower_limit;
         $ship_up  = $ship->upper_limit;
         $ship_min = $ship->Minimum_orders;
-
-
-
-
-
 
         $GOODS=[];
 
@@ -242,6 +239,8 @@ class QuotationController extends Controller
         $err1=array();
         $err2=array();
 
+
+
         if ($type == "fedex") {
             //fedexは各アイテムの在庫数以上の注文はエラーにする
             foreach ($GOODS as $key=>$val) {
@@ -271,6 +270,7 @@ class QuotationController extends Controller
             if (!empty($err)) {
                 return redirect()->route($route_name)->with('flash_message', implode('<br>', $err))->withInput();
             }
+
         }
 
         if ($type == "air") {
@@ -323,6 +323,8 @@ class QuotationController extends Controller
             if (!empty($err)) {
                 return redirect()->route($route_name)->with('flash_message', $err)->withInput();
             }
+
+ 
         }
 
 
@@ -484,8 +486,8 @@ class QuotationController extends Controller
         }
 
         //Userinformationsテーブルからマスターのidと同じuser_idを探し住所等を取り出す
-        $Userinformations = User::find($user_id)->Userinformations;
-
+        $Userinformations = User::find($user_id)->Userinformation;
+ 
         //Userinformationsがnullの場合（住所登録が住んでいない場合）なら、quotation_noを持たせて住所入力フォームへ移動
         if ($Userinformations == null) {
             return view('entryform', compact('uuid', 'user_id', 'quotation_no'));
